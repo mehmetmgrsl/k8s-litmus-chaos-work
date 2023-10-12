@@ -53,6 +53,25 @@ To help teams find problems and possible system breakdowns by safely running tes
             chaos-mongodb-headless             ClusterIP   None            <none>        27017/TCP           
        ```        
 
+### Accessing the Litmus ChaosCenter
+
+- Run ```kubectl get svc -n litmus``` and get port of ```the chaos-litmus-frontend-service```
+
+- Run ```kubectl get nodes -o wide``` to get the IP address of the node.
+
+```
+kubectl get nodes -o wide
+NAME       STATUS   ROLES           AGE   VERSION    INTERNAL-IP    EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
+minikube   Ready    control-plane   57m   v1.25.14   192.168.49.2   <none>        Ubuntu 22.04.2 LTS   5.15.0-84-generic   docker://24.0.4
+```
+
+- Access ```http://<IP-of-NODE>:<PORT-of-chaos-litmus-frontend-service>``` , for my installation it was http://192.168.49.2:31768
+
+
+  - ![litmus-chaos-center](litmus-chaos-center.png) 
+  - The default credentials are:
+     - Username: admin
+     - Password: litmus
 
 ### Test (Chaos Experiments)
 
