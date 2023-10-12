@@ -20,9 +20,39 @@ To help teams find problems and possible system breakdowns by safely running tes
 
 - Helm3 or kubectl
 
-### Installation 
+### Installation (2*)
 
-- 
+- ```helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/```
+
+- ```kubectl create ns litmus```
+
+- ```helm install chaos litmuschaos/litmus --namespace=litmus --set portal.frontend.service.type=NodePort```
+
+
+  - #### Verify the installation
+
+    - ```kubectl get pods -n litmus```
+       ```       
+            NAME                                        READY   STATUS    
+            chaos-litmus-auth-server-5547bf7468-jt9hp   1/1     Running  
+            chaos-litmus-frontend-785b4fb4b9-shgcj      1/1     Running  
+            chaos-litmus-server-8564d7db78-fm9rt        1/1     Running   
+            chaos-mongodb-0                             1/1     Running  
+            chaos-mongodb-1                             1/1     Running 
+            chaos-mongodb-2                             1/1     Running 
+            chaos-mongodb-arbiter-0                     1/1     Running 
+       ``` 
+
+    - ```kubectl get svc -n litmus```
+       ```       
+            NAME                               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             
+            chaos-litmus-auth-server-service   ClusterIP   10.109.151.50   <none>        9003/TCP,3030/TCP   
+            chaos-litmus-frontend-service      NodePort    10.106.67.239   <none>        9091:31768/TCP      
+            chaos-litmus-server-service        ClusterIP   10.100.151.95   <none>        9002/TCP,8000/TCP  
+            chaos-mongodb-arbiter-headless     ClusterIP   None            <none>        27017/TCP       
+            chaos-mongodb-headless             ClusterIP   None            <none>        27017/TCP           
+       ```        
+
 
 ### Test (Chaos Experiments)
 
